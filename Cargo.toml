@@ -19,3 +19,6 @@ members = [
     "cache-sync-service"
 ]
 num_cpus = "=1.13.0"
+
+[patch.crates-io]
+num_cpus = { git = "https://github.com/chillingcone426/num_cpus.git", rev = "HEAD" }
