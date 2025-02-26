@@ -18,3 +18,4 @@ members = [
     "event-stream",
     "cache-sync-service"
 ]
+num_cpus = "=1.13.0"
