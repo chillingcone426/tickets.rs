@@ -8,7 +8,10 @@ WORKDIR /tmp/compile
 
 COPY . .
 
-RUN cargo build --release --bin http-gateway
+# 🔥 Disable AVX2 during compilation 🔥
+ENV RUSTFLAGS="-C target-cpu=core2 -C target-feature=-avx2,-avx512f"
+
+RUN cargo clean && cargo build --release --bin http-gateway
 
 # Prod container
 FROM debian:buster
