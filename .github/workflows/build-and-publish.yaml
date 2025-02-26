@@ -73,8 +73,8 @@ jobs:
       - name: Show Cargo build logs on failure
         if: steps.build.outcome == 'failure'
         run: |
-          echo "❌ Cargo Build Failed. Showing logs..."
-          find /tmp/compile -type f -name "*.log" -exec cat {} +
+          echo "❌ Cargo Build Failed. Searching for logs..."
+          find /tmp -type f -name "*.log" -exec cat {} +
           exit 1
 
       - name: Log image name
