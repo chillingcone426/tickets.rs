@@ -30,3 +30,7 @@ incremental = false
 
 [build]
 rustflags = ["-C", "target-cpu=core2", "-C", "target-feature=-avx2,-avx512f"]
+
+[dependencies.num_cpus]
+version = "1.0"
+default-features = false
