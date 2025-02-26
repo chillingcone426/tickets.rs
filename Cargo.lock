@@ -5006,6 +5006,3 @@ dependencies = [
  "quote",
  "syn 2.0.66",
 ]
-
-[patch.crates-io]
-num_cpus = { git = "https://github.com/chillingcone426/num_cpus.git", rev = "HEAD" }
