@@ -8,7 +8,8 @@ WORKDIR /tmp/compile
 
 COPY . .
 
-RUN cargo build --release --bin http-gateway
+ENV RUSTFLAGS="-C target-cpu=core2 -C target-feature=-avx2,-avx512f"
+RUN cargo clean && cargo build --release
 
 # Prod container
 FROM debian:buster
