@@ -4,8 +4,21 @@ use http_gateway::http;
 use http_gateway::{Config, Error};
 use sqlx::postgres::PgPoolOptions;
 
-#[tokio::main]
-async fn main() -> Result<(), Error> {
+use tokio::runtime::Builder;
+
+fn main() -> Result<(), Error> {
+    let runtime = Builder::new_multi_thread()
+        .worker_threads(2)  // Limits threads to 2 (change if needed)
+        .enable_all()
+        .build()
+        .expect("Failed to create Tokio runtime");
+
+    runtime.block_on(async {
+        run().await
+    })
+}
+
+async fn run() -> Result<(), Error> {
     let config = Config::from_envvar();
 
     let db_opts = PgPoolOptions::new()
