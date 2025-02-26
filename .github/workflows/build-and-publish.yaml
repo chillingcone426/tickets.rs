@@ -66,6 +66,8 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_NAME }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            RUSTFLAGS="-C target-cpu=core2 -C target-feature=-avx2,-avx512f"
 
       - name: Log image name
         run: |
