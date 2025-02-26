@@ -17,7 +17,7 @@ ENV RUSTFLAGS="-C target-cpu=core2 -C target-feature=-avx2,-avx512f"
 
 # Ensure dependencies are rebuilt with these flags
 RUN cargo clean && cargo update && cargo fetch
-RUN cargo build --release
+RUN cargo build --release || (echo "Cargo build failed! Showing logs..." && cat /tmp/compile/target/release/build.log || true && exit 1)
 
 # Production container
 FROM debian:buster AS prod
