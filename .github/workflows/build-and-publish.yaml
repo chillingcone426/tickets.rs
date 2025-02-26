@@ -58,8 +58,9 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build and push Docker image
+        id: build
+        continue-on-error: true
         uses: docker/build-push-action@v4
-
         with:
           context: .
           file: ${{ matrix.dockerfile }}
@@ -68,6 +69,13 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             RUSTFLAGS="-C target-cpu=core2 -C target-feature=-avx2,-avx512f"
+
+      - name: Show Cargo build logs on failure
+        if: steps.build.outcome == 'failure'
+        run: |
+          echo "❌ Cargo Build Failed. Showing logs..."
+          find /tmp/compile -type f -name "*.log" -exec cat {} +
+          exit 1
 
       - name: Log image name
         run: |
